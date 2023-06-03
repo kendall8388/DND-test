@@ -85,7 +85,7 @@ export function ConversationItems(props: {
 
     <ListDivider />
 
-    <MenuItem onClick={props.onImportConversation}>
+   {/*  <MenuItem onClick={props.onImportConversation}>
       <ListItemDecorator>
         <FileUploadIcon />
       </ListItemDecorator>
@@ -97,7 +97,7 @@ export function ConversationItems(props: {
       <Typography>
         Delete all
       </Typography>
-    </MenuItem>
+    </MenuItem> */}
 
     {/*<ListItem>*/}
     {/*  <Typography level='body2'>*/}

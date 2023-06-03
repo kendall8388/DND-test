@@ -49,7 +49,7 @@ const expandPromptTemplate = (template: string, dict: object) => (inputValue: st
 };
 
 
-const attachFileLegend =
+/* const attachFileLegend =
   <Stack sx={{ p: 1, gap: 1, fontSize: '16px', fontWeight: 400 }}>
     <Box sx={{ mb: 1, textAlign: 'center' }}>
       Attach a file to the message
@@ -84,15 +84,15 @@ const attachFileLegend =
 const pasteClipboardLegend =
   <Box sx={{ p: 1, fontSize: '14px', fontWeight: 400 }}>
     Converts Code and Tables to 📚 Markdown
-  </Box>;
+  </Box>; */
 
 
-const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onClick: () => void, sx?: SxProps }) =>
+/* const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onClick: () => void, sx?: SxProps }) =>
   <Tooltip title='CTRL + M' placement='top'>
     <IconButton variant={props.variant} color={props.color} onClick={props.onClick} sx={props.sx}>
       <MicIcon />
     </IconButton>
-  </Tooltip>;
+  </Tooltip>; */
 
 
 const SendModeMenu = (props: { anchorEl: HTMLAnchorElement, sendMode: SendModeId, onSetSendMode: (sendMode: SendModeId) => void, onClose: () => void, }) =>
@@ -398,7 +398,7 @@ export function Composer(props: {
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
-    ? 'Tell me what you need, and drop source files...'
+    ? 'Tell me what you want to do, choose carefully...'
     : /*isProdiaConfigured ?*/ 'Chat · /react · /imagine · drop text files...' /*: 'Chat · /react · drop text files...'*/;
 
   const isReAct = sendModeId === 'react';
@@ -416,10 +416,10 @@ export function Composer(props: {
             {/*<Typography level='body3' sx={{mb: 2}}>Context</Typography>*/}
 
             {isSpeechEnabled && <Box sx={{ mb: { xs: 1, md: 2 }, ...hideOnDesktop }}>
-              <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} />
+              {/* <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} /> */}
             </Box>}
 
-            <IconButton variant='plain' color='neutral' onClick={handleShowFilePicker} sx={{ ...hideOnDesktop }}>
+         {/*    <IconButton variant='plain' color='neutral' onClick={handleShowFilePicker} sx={{ ...hideOnDesktop }}>
               <UploadFileIcon />
             </IconButton>
             <Tooltip
@@ -429,11 +429,11 @@ export function Composer(props: {
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
                 Attach
               </Button>
-            </Tooltip>
+            </Tooltip> */}
 
             <Box sx={{ mt: { xs: 1, md: 2 } }} />
 
-            <IconButton variant='plain' color='neutral' onClick={handlePasteFromClipboard} sx={{ ...hideOnDesktop }}>
+        {/*     <IconButton variant='plain' color='neutral' onClick={handlePasteFromClipboard} sx={{ ...hideOnDesktop }}>
               <ContentPasteGoIcon />
             </IconButton>
             <Tooltip
@@ -443,7 +443,7 @@ export function Composer(props: {
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
                 {props.isDeveloperMode ? 'Paste code' : 'Paste'}
               </Button>
-            </Tooltip>
+            </Tooltip> */}
 
             <input type='file' multiple hidden ref={attachmentFileInputRef} onChange={handleLoadAttachment} />
 
@@ -481,7 +481,7 @@ export function Composer(props: {
 
             </Box>
 
-            {isSpeechEnabled && <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} sx={{ ...hideOnMobile, position: 'absolute', top: 0, right: 0, margin: 1 }} />}
+            {/* {isSpeechEnabled && <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} sx={{ ...hideOnMobile, position: 'absolute', top: 0, right: 0, margin: 1 }} />} */}
 
             {!!tokenLimit && <TokenBadge directTokens={directTokens} indirectTokens={historyTokens + responseTokens} tokenLimit={tokenLimit} absoluteBottomRight />}
 
@@ -526,17 +526,17 @@ export function Composer(props: {
                   Stop
                 </Button>
                 : <Button fullWidth variant='solid' color={isReAct ? 'info' : 'primary'} disabled={!props.conversationId} onClick={handleSendClicked} onDoubleClick={handleShowSendMode} endDecorator={isReAct ? <PsychologyIcon /> : <TelegramIcon />}>
-                  {isReAct ? 'ReAct' : 'Chat'}
+                  {isReAct ? 'ReAct' : 'Send'}
                 </Button>}
             </Box>
 
             {/* [desktop-only] row with Sent Messages button */}
             <Stack direction='row' spacing={1} sx={{ ...hideOnMobile, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end' }}>
-              {sentMessages.length > 0 && (
+             {/*  {sentMessages.length > 0 && (
                 <Button disabled={!!sentMessagesAnchor} fullWidth variant='plain' color='neutral' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
                   History
                 </Button>
-              )}
+              )} */}
             </Stack>
 
           </Stack>

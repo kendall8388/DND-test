@@ -345,7 +345,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
 
 
       {/* Copy message */}
-      {!fromSystem && !isEditing && (
+    {/*   {!fromSystem && !isEditing && (
         <Tooltip title={fromAssistant ? 'Copy message' : 'Copy input'} variant='solid'>
           <IconButton
             variant='outlined' color='neutral' onClick={handleMenuCopy}
@@ -356,7 +356,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
             <ContentCopyIcon />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
 
 
       {/* Message Operations menu */}
@@ -364,7 +364,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
         <Menu
           variant='plain' color='neutral' size='lg' placement='bottom-end' sx={{ minWidth: 280 }}
           open anchorEl={menuAnchor} onClose={closeOperationsMenu}>
-          <MenuItem onClick={handleMenuCopy}>
+         {/*  <MenuItem onClick={handleMenuCopy}>
             <ListItemDecorator><ContentCopyIcon /></ListItemDecorator>
             Copy
           </MenuItem>
@@ -397,7 +397,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
               <ListItemDecorator><FastForwardIcon /></ListItemDecorator>
               Run Again
             </MenuItem>
-          )}
+          )} */}
           <MenuItem onClick={props.onMessageDelete} disabled={false /*fromSystem*/}>
             <ListItemDecorator><ClearIcon /></ListItemDecorator>
             Delete

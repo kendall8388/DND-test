@@ -100,7 +100,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
   const handleCustomSystemMessageChange = (v: React.ChangeEvent<HTMLTextAreaElement>): void => {
     // TODO: persist this change? Right now it's reset every time.
     //       maybe we shall have a "save" button just save on a state to persist between sessions
-    SystemPurposes['Custom'].systemMessage = v.target.value;
+   // SystemPurposes['Custom'].systemMessage = v.target.value;
   };
 
 
@@ -109,7 +109,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
   const purposeIDs = editMode ? unfilteredPurposeIDs : unfilteredPurposeIDs.filter(id => !hiddenPurposeIDs.includes(id));
 
   const selectedPurpose = purposeIDs.length ? (SystemPurposes[systemPurposeId] ?? null) : null;
-  const selectedExample = selectedPurpose?.examples && getRandomElement(selectedPurpose.examples) || null;
+  //const selectedExample = selectedPurpose?.examples && getRandomElement(selectedPurpose.examples) || null;
 
   return <>
 
@@ -138,7 +138,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
 
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, mb: 1 }}>
           <Typography level='body2' color='neutral'>
-            Select an AI purpose
+            Select a Dungeon Master
           </Typography>
           <Button variant='plain' color='neutral' size='sm' onClick={toggleEditMode}>
             {editMode ? 'Done' : 'Edit'}
@@ -182,12 +182,12 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
           ))}
         </Grid>
 
-        <Typography
+       {/*  <Typography
           level='body2'
           sx={{
             mt: selectedExample ? 1 : 3,
             display: 'flex', alignItems: 'center', gap: 1,
-            // justifyContent: 'center',
+           
             '&:hover > button': { opacity: 1 },
           }}>
           {!selectedPurpose
@@ -217,7 +217,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
               lineHeight: 1.75,
               mt: 1,
             }} />
-        )}
+        )} */}
 
       </Box>
 

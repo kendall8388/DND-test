@@ -253,7 +253,7 @@ export function Chat() {
 
     <Composer
       conversationId={activeConversationId} messageId={null}
-      isDeveloperMode={systemPurposeId === 'Developer'}
+      isDeveloperMode={systemPurposeId === 'DungeonMaster'}
       onSendMessage={handleSendUserMessage}
       sx={{
         zIndex: 21, // position: 'sticky', bottom: 0,

@@ -130,7 +130,7 @@ export function UISettings() {
                   slotProps={{ endDecorator: { sx: { minWidth: 26 } } }} />
         </FormControl>
 
-        <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
+      {/*   <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
           <Box>
             <FormLabel>Purpose finder</FormLabel>
             <FormHelperText>{showPurposeFinder ? 'Show search bar' : 'Hide search bar'}</FormHelperText>
@@ -138,7 +138,7 @@ export function UISettings() {
           <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange}
                   endDecorator={showPurposeFinder ? 'On' : 'Off'}
                   slotProps={{ endDecorator: { sx: { minWidth: 26 } } }} />
-        </FormControl>
+        </FormControl> */}
 
         <FormControl orientation='horizontal' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Box>

@@ -56,33 +56,33 @@ export function ActionItems(props: {
 
     <ListDivider />
 
-    <MenuItem onClick={handleSystemMessagesToggle}>
+{/*     <MenuItem onClick={handleSystemMessagesToggle}>
       <ListItemDecorator><SettingsSuggestIcon /></ListItemDecorator>
       System message
       <Switch checked={showSystemMessages} onChange={handleSystemMessagesToggle} sx={{ ml: 'auto' }} />
-    </MenuItem>
+    </MenuItem> */}
 
-    <ListDivider />
+    {/* <ListDivider /> */}
 
-    <MenuItem disabled={disabled} onClick={handleConversationPublish}>
-      <ListItemDecorator>
+   {/*  <MenuItem disabled={disabled} onClick={handleConversationPublish}>
+      <ListItemDecorator> */}
         {/*<Badge size='sm' color='primary'>*/}
-        <ExitToAppIcon />
+        {/* <ExitToAppIcon /> */}
         {/*</Badge>*/}
-      </ListItemDecorator>
+     {/*  </ListItemDecorator>
       Share via paste.gg
-    </MenuItem>
+    </MenuItem> */}
 
-    <MenuItem disabled={disabled} onClick={handleConversationDownload}>
+   {/*  <MenuItem disabled={disabled} onClick={handleConversationDownload}>
       <ListItemDecorator>
         <FileDownloadIcon />
       </ListItemDecorator>
       Export conversation
     </MenuItem>
 
-    <ListDivider />
+    <ListDivider /> */}
 
-    <MenuItem disabled={disabled} onClick={handleToggleMessageSelectionMode}>
+ {/*    <MenuItem disabled={disabled} onClick={handleToggleMessageSelectionMode}>
       <ListItemDecorator>{props.isMessageSelectionMode ? <CheckBoxOutlinedIcon /> : <CheckBoxOutlineBlankOutlinedIcon />}</ListItemDecorator>
       <span style={props.isMessageSelectionMode ? { fontWeight: 800 } : {}}>
         Cleanup ...
@@ -92,7 +92,7 @@ export function ActionItems(props: {
     <MenuItem disabled={disabled} onClick={handleConversationClear}>
       <ListItemDecorator><ClearIcon /></ListItemDecorator>
       Clear conversation
-    </MenuItem>
+    </MenuItem> */}
 
   </>;
 }

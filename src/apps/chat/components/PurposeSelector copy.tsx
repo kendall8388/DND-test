@@ -1,4 +1,3 @@
-//purposeselector.tsx
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
 
@@ -11,8 +10,6 @@ import { useChatStore } from '@/common/state/store-chats';
 import { usePurposeStore } from '@/common/state/store-purposes';
 import { useSettingsStore } from '@/common/state/store-settings';
 
-import { Composer } from './composer/Composer';
-
 //import CharacterBuilder from './CharacterBuilder';
 
 // Constants for tile sizes / grid width - breakpoints need to be computed here to work around
@@ -23,32 +20,10 @@ import { Composer } from './composer/Composer';
 
 const alignments = ["Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil"];
 const races = ["Human", "Elf", "Dwarf", "Halfling", "Dragonborn", "Gnome", "Half-Elf", "Half-Orc", "Tiefling"];
-const genders = ["Non-Binary","Male", "Female"];
+const genders = ["Male", "Female", "Non-Binary"];
 const classes = ["Fighter", "Wizard", "Rogue", "Paladin", "Cleric", "Ranger", "Barbarian", "Druid", "Monk", "Sorcerer", "Warlock", "Bard"];
 
 type CharacterClass = 'Barbarian' | 'Bard' | 'Cleric' | 'Druid' | 'Fighter' | 'Monk' | 'Paladin' | 'Ranger' | 'Rogue' | 'Sorcerer' | 'Warlock' | 'Wizard';
-const levelExperience: Record<number, number> = {
-  1: 0,
-  2: 300,
-  3: 900,
-  4: 2700,
-  5: 6500,
-  6: 14000,
-  7: 23000,
-  8: 34000,
-  9: 48000,
-  10: 64000,
-  11: 85000,
-  12: 100000,
-  13: 120000,
-  14: 140000,
-  15: 165000,
-  16: 195000,
-  17: 225000,
-  18: 265000,
-  19: 305000,
-  20: 355000,
-};
 
 
 
@@ -75,10 +50,10 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
   const [searchQuery, setSearchQuery] = React.useState('');
   const [filteredIDs, setFilteredIDs] = React.useState<SystemPurposeId[] | null>(null);
   const [editMode, setEditMode] = React.useState(false);
-  const [alignment, setAlignment] = React.useState('True Neutral');
-  const [race, setRace] = React.useState('Human');
-  //const [raceTraits, setRaceTraits] = React.useState({});
-  const [gender, setGender] = React.useState("Non-Binary");
+  const [alignment, setAlignment] = React.useState("");
+  const [race, setRace] = React.useState("");
+  const [raceTraits, setRaceTraits] = React.useState({});
+  const [gender, setGender] = React.useState("");
   const [charClass, setCharClass] = React.useState<CharacterClass>('Fighter');
   const [str, setStr] = React.useState(10);
   const [dex, setDex] = React.useState(10);
@@ -87,15 +62,11 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
   const [wis, setWis] = React.useState(10);
   const [cha, setCha] = React.useState(10);
   const [rolls, setRolls] = React.useState(0);
-  const [level, setLevel] = React.useState(1);
-  const [experience, setExperience] = React.useState(levelExperience[level]);
-  const [characterName, setCharacterName] = React.useState("");
-  const [rollButtonPressed, setRollButtonPressed] = React.useState(false);
- // const [characterSheet, setCharacterSheet] = React.useState(null);
-  const [characterSheet, setCharacterSheet] = React.useState<CharacterSheet>(null);
-
-
-
+  //const [hitDie, setHitDie] = React.useState(0);
+  //const initialClass = "Fighter";
+  //const [hitPoints, setHitPoints] = React.useState(0);
+  //const [hitDie, setHitDie] = React.useState(getHitDieForClass(initialClass));
+  //const [hitPoints, setHitPoints] = React.useState(calculateHitPoints(initialClass, con));
 
   // external state
   const theme = useTheme();
@@ -136,14 +107,6 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
     setHitPoints(calculateHitPoints(charClass, con));
     }, [charClass, con]);
 
-  React.useEffect(() => {
-    setExperience(levelExperience[level]);
-    }, [level]);
-    
-
-    const handleLevelChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      setLevel(Number(event.target.value));
-    };
     
 
   const handleSearchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,9 +178,7 @@ const handleButtonClick = () => {
     setCha(rollStat());
     setRolls(rolls + 1);
   }
-  setRollButtonPressed(true);
 };
-
 
 const getConstitutionModifier = (con: number) => {
   if (con >= 2 && con <= 3) return -4;
@@ -280,62 +241,6 @@ const initialClass = "Fighter";
 const [hitPoints, setHitPoints] = React.useState(calculateHitPoints(initialClass, con));
 const [hitDie, setHitDie] = React.useState(getHitDieForClass(initialClass));
 
-const genderFilteredClasses = (gender: string) => {
-  switch(gender) {
-    case "Male":
-      return classes.filter(c => c !== "Sorcerer");
-    case "Female":
-      return classes.filter(c => c !== "Wizard");
-    default:
-      return classes;
-  }
-};
-
-type CharacterSheet = {
-  name: string;
-  level: number;
-  experience: number;
-  alignment: string;
-  race: string;
-  gender: string;
-  class: CharacterClass;
-  str: number;
-  dex: number;
-  con: number;
-  int: number;
-  wis: number;
-  cha: number;
-  hitPoints: number;
-  hitDie: number;
-} | null;
-
-const createCharacterSheet = () => {
-  if (characterName === "" || !rollButtonPressed) return;
-
-  const newCharacterSheet = {
-    name: characterName,
-    level: level,
-    experience: experience,
-    alignment: alignment,
-    race: race,
-    gender: gender,
-    class: charClass,
-    str: str,
-    dex: dex,
-    con: con,
-    int: int,
-    wis: wis,
-    cha: cha,
-    hitPoints: hitPoints,
-    hitDie: hitDie,
-  };
-
-  setCharacterSheet(newCharacterSheet);
-
-  console.log(newCharacterSheet);
-};
-
-
 
   return <>
 
@@ -364,14 +269,14 @@ const createCharacterSheet = () => {
 
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, mb: 1 }}>
           <Typography level='body2' color='neutral'>
-            Select a Dungeon Difficulty
+            Select a Dungeon Master
           </Typography>
           <Button variant='plain' color='neutral' size='sm' onClick={toggleEditMode}>
             {editMode ? 'Done' : 'Edit'}
           </Button>
         </Box>
 
-        <Grid container spacing={tileSpacing} sx={{ justifyContent: 'flex-start', gap: 2, mb: 1 }}>
+        <Grid container spacing={tileSpacing} sx={{ justifyContent: 'flex-start' }}>
           {purposeIDs.map((spId) => (
             <Grid key={spId}>
               <Button
@@ -407,51 +312,29 @@ const createCharacterSheet = () => {
             </Grid>
           ))}
         </Grid>
-   
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 1 }}>
     <Typography level='body2' color='neutral' sx={{ textAlign: 'center' }}>
         Build Your Character
     </Typography>
 </Box>
-
-<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 2, mb: 1 }}>
-  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <Typography level='body2' color='neutral' sx={{ textAlign: 'center' }}>
-      Level
-    </Typography>
-    <select value={level} onChange={handleLevelChange}>
-    {Array.from({ length: 20 }, (_, i) => i + 1).map((level) => (
-  <option key={level} value={level}>{level}</option>
-))}
-
-    </select>
-  </Box>
-  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <Typography level='body2' color='neutral' sx={{ textAlign: 'center' }}>
-      Experience
-    </Typography>
-    <Typography level='body2' color='neutral' sx={{ textAlign: 'center' }}>
-      {experience}
-    </Typography>
-  </Box>
+<Box>
+  
 </Box>
-
 {/* Add this section for Character Name field */}
 
 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 2, mb: 1, width: '100%' }}>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography level='body2' color='neutral' sx={{ textAlign: 'center' }}>
-                Character Name
+                Name
             </Typography>
             <Input
-    fullWidth
-    variant='outlined' color='neutral'
-    value={characterName} onChange={(e) => setCharacterName(e.target.value)}
-    placeholder='Enter character name…'
-    sx={{
-        boxShadow: theme.vars.shadow.sm,
-    }}
-/>
+                fullWidth
+                variant='outlined' color='neutral'
+                placeholder='Enter character name…'
+                sx={{
+                    boxShadow: theme.vars.shadow.sm,
+                }}
+            />
         </Box>
     </Box>
 
@@ -495,11 +378,11 @@ const createCharacterSheet = () => {
         Class
     </Typography>
     <select value={charClass} onChange={handleClassChange}>
-        {genderFilteredClasses(gender).map((charClass) => (
+        {classes.map((charClass) => (
             <option key={charClass} value={charClass}>{charClass}</option>
         ))}
     </select>
-</Box>
+  </Box>
 </Box>
 
 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 2, mb: 1 }}>
@@ -521,11 +404,44 @@ const createCharacterSheet = () => {
   <Typography>Cha: {cha}</Typography>
   <Button onClick={handleButtonClick} disabled={rolls >= 3}>Roll Stats 🎲 </Button>
   <Typography>Attempts remaining: {3 - rolls}</Typography>
-  <Button onClick={createCharacterSheet} disabled={characterName === "" || !rollButtonPressed} >Start Game</Button>
 </Box>
 
+       {/*  <Typography
+          level='body2'
+          sx={{
+            mt: selectedExample ? 1 : 3,
+            display: 'flex', alignItems: 'center', gap: 1,
+           
+            '&:hover > button': { opacity: 1 },
+          }}>
+          {!selectedPurpose
+            ? 'Oops! No AI purposes found for your search.'
+            : (selectedExample
+                ? <>
+                  <i>{selectedExample}</i>
+                  <IconButton
+                    variant='plain' color='neutral' size='md'
+                    onClick={() => props.runExample(selectedExample)}
+                    sx={{ opacity: 0, transition: 'opacity 0.3s' }}
+                  >
+                    💬
+                  </IconButton>
+                </>
+                : selectedPurpose.description
+            )}
+        </Typography>
 
-
+        {systemPurposeId === 'Custom' && (
+          <Textarea
+            variant='outlined' autoFocus placeholder={'Craft your custom system message here…'}
+            minRows={3}
+            defaultValue={SystemPurposes['Custom']?.systemMessage} onChange={handleCustomSystemMessageChange}
+            sx={{
+              background: theme.vars.palette.background.level1,
+              lineHeight: 1.75,
+              mt: 1,
+            }} />
+        )} */}
 
       </Box>
 

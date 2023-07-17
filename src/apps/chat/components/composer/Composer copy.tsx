@@ -32,7 +32,6 @@ import { TokenBadge } from './TokenBadge';
 import { TokenProgressbar } from './TokenProgressbar';
 import { hideOnDesktop, hideOnMobile } from '@/common/theme';
 
-import { PurposeSelector } from '../PurposeSelector';
 
 // import { isValidProdiaApiKey, requireUserKeyProdia } from '@/modules/prodia/prodia.client';
 
@@ -53,6 +52,50 @@ const expandPromptTemplate = (template: string, dict: object) => (inputValue: st
 };
 
 
+/* const attachFileLegend =
+  <Stack sx={{ p: 1, gap: 1, fontSize: '16px', fontWeight: 400 }}>
+    <Box sx={{ mb: 1, textAlign: 'center' }}>
+      Attach a file to the message
+    </Box>
+    <table>
+      <tbody>
+      <tr>
+        <td width={36}><PictureAsPdfIcon sx={{ width: 24, height: 24 }} /></td>
+        <td><b>PDF</b></td>
+        <td width={36} align='center' style={{ opacity: 0.5 }}>→</td>
+        <td>📝 Text (split manually)</td>
+      </tr>
+      <tr>
+        <td><DataArrayIcon sx={{ width: 24, height: 24 }} /></td>
+        <td><b>Code</b></td>
+        <td align='center' style={{ opacity: 0.5 }}>→</td>
+        <td>📚 Markdown</td>
+      </tr>
+      <tr>
+        <td><FormatAlignCenterIcon sx={{ width: 24, height: 24 }} /></td>
+        <td><b>Text</b></td>
+        <td align='center' style={{ opacity: 0.5 }}>→</td>
+        <td>📝 As-is</td>
+      </tr>
+      </tbody>
+    </table>
+    <Box sx={{ mt: 1, fontSize: '14px' }}>
+      Drag & drop in chat for faster loads ⚡
+    </Box>
+  </Stack>;
+
+const pasteClipboardLegend =
+  <Box sx={{ p: 1, fontSize: '14px', fontWeight: 400 }}>
+    Converts Code and Tables to 📚 Markdown
+  </Box>; */
+
+
+/* const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onClick: () => void, sx?: SxProps }) =>
+  <Tooltip title='CTRL + M' placement='top'>
+    <IconButton variant={props.variant} color={props.color} onClick={props.onClick} sx={props.sx}>
+      <MicIcon />
+    </IconButton>
+  </Tooltip>; */
 
 
 const SendModeMenu = (props: { anchorEl: HTMLAnchorElement, sendMode: SendModeId, onSetSendMode: (sendMode: SendModeId) => void, onClose: () => void, }) =>
@@ -108,8 +151,12 @@ const SentMessagesMenu = (props: {
 
 
 /**
-
- 
+ * A React component for composing and sending messages in a chat-like interface.
+ * Supports pasting text and code from the clipboard, and a local log of sent messages.
+ *
+ * Note: Useful bash trick to generate code from a list of files:
+ *       $ for F in *.ts; do echo; echo "\`\`\`$F"; cat $F; echo; echo "\`\`\`"; done | clip
+ *
  * @param {boolean} props.disableSend - Flag to disable the send button.
  * @param {(text: string, conversationId: string | null) => void} props.sendMessage - Function to send the message. conversationId is null for the Active conversation
  * @param {() => void} props.stopGeneration - Function to stop response generation
@@ -358,7 +405,7 @@ export function Composer(props: {
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
     ? 'Tell me what you want to do, choose carefully...'
-    : /*isProdiaConfigured ?*/ 'Tell me what you want to do, choose carefully...' /*: 'Chat · /react · drop text files...'*/;
+    : /*isProdiaConfigured ?*/ 'Chat · /react · /imagine · drop text files...' /*: 'Chat · /react · drop text files...'*/;
 
   const isReAct = sendModeId === 'react';
 
@@ -378,11 +425,31 @@ export function Composer(props: {
               {/* <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} /> */}
             </Box>}
 
-        
+         {/*    <IconButton variant='plain' color='neutral' onClick={handleShowFilePicker} sx={{ ...hideOnDesktop }}>
+              <UploadFileIcon />
+            </IconButton>
+            <Tooltip
+              variant='solid' placement='top-start'
+              title={attachFileLegend}>
+              <Button fullWidth variant='plain' color='neutral' onClick={handleShowFilePicker} startDecorator={<UploadFileIcon />}
+                      sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
+                Attach
+              </Button>
+            </Tooltip> */}
 
             <Box sx={{ mt: { xs: 1, md: 2 } }} />
 
-
+        {/*     <IconButton variant='plain' color='neutral' onClick={handlePasteFromClipboard} sx={{ ...hideOnDesktop }}>
+              <ContentPasteGoIcon />
+            </IconButton>
+            <Tooltip
+              variant='solid' placement='top-start'
+              title={pasteClipboardLegend}>
+              <Button fullWidth variant='plain' color='neutral' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteFromClipboard}
+                      sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
+                {props.isDeveloperMode ? 'Paste code' : 'Paste'}
+              </Button>
+            </Tooltip> */}
 
             <input type='file' multiple hidden ref={attachmentFileInputRef} onChange={handleLoadAttachment} />
 

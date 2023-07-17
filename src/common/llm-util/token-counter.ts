@@ -1,6 +1,7 @@
 import { encoding_for_model, get_encoding, Tiktoken } from '@dqbd/tiktoken';
 
 import { ChatModelId, defaultChatModelId } from '../../data';
+//import { ChatModelId, fastChatModelId } from '../../data';
 import { DMessage } from '../state/store-chats';
 
 

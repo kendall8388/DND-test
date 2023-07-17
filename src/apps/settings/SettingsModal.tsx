@@ -38,7 +38,7 @@ export function SettingsModal() {
           <Typography level='h6' sx={{ mb: 2 }}>Settings</Typography>
           <ModalClose />
 
-          {/* <OpenAISettings /> */}
+           <OpenAISettings /> 
 
           <UISettings />
 
@@ -48,7 +48,7 @@ export function SettingsModal() {
 
           <SearchSettings /> */}
 
-          {/* <OpenAIAdvancedSettings /> */}
+          <OpenAIAdvancedSettings /> 
 
           <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant='solid' onClick={closeSettings}>
